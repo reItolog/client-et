@@ -1,7 +1,7 @@
 <template>
   <section class="form-container ">
     <h2>Sign In</h2>
-    <p>{{ error }}</p>
+    <p class="error" v-if="error">{{ error }}</p>
     <form class="auth-form" @submit.prevent="handleSubmit">
       <div class="form--field">
         <label for="email">email</label>
@@ -63,4 +63,12 @@ export default {
 
 <style>
 @import './auth-form.scss';
+.error {
+  position: absolute;
+  top: 0;
+  background: rgb(173, 58, 58);
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+}
 </style>

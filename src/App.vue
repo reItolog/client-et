@@ -5,7 +5,6 @@
       <router-link to="/auth/signin" v-if="!token">auth</router-link>
       <button v-if="token" @click="logOut">authlogOut</button>
     </div>
-    {{ token }}
     <router-view />
   </div>
 </template>
@@ -25,13 +24,11 @@ export default {
     logOut() {
       storageService.removeAuthToken();
       this.$store.commit('setToken', null);
-      this.token = null;
     },
   },
   mounted() {
-    this.token = storageService.getAuthToken();
-    console.log(this.token);
-    if (!this.token) {
+    const token = storageService.getAuthToken();
+    if (!token) {
       this.$router.push('/auth/signin');
     }
   },
