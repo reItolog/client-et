@@ -1,6 +1,7 @@
 <template>
   <section class="form-container ">
     <h2>Sign In</h2>
+    <p>{{ error }}</p>
     <form class="auth-form" @submit.prevent="handleSubmit">
       <div class="form--field">
         <label for="email">email</label>
@@ -23,26 +24,37 @@
 </template>
 
 <script>
-import axios from 'axios';
+import apiConfig from '../../../config/api.json';
+import { storageService } from '../../shared/services/localstorage.service';
+import { useFetch } from '../../shared/utils/useFetch.js';
 
 export default {
   data() {
     return {
       email: '',
       password: '',
+      error: '',
     };
   },
 
   methods: {
     async handleSubmit() {
       try {
-        const userPaylod = await axios.post('localhost:5000/signin', {
-          email: this.email,
-          password: this.password,
-        });
-        console.log(userPaylod);
+        const { data } = await useFetch(
+          `${apiConfig.baseApiUrl}/signin`,
+          {
+            email: this.email,
+            password: this.password,
+          },
+          'post',
+        );
+
+        this.$store.commit('setToken', data.token);
+        storageService.setAuthToken(data.token);
+
+        this.$router.push('/');
       } catch (e) {
-        console.log(e.message);
+        this.error = e.message;
       }
     },
   },

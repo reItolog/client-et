@@ -2,12 +2,41 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/auth/signin">auth</router-link>
+      <router-link to="/auth/signin" v-if="!token">auth</router-link>
+      <button v-if="token" @click="logOut">authlogOut</button>
     </div>
-
+    {{ token }}
     <router-view />
   </div>
 </template>
+
+<script>
+import { storageService } from './shared/services/localstorage.service';
+export default {
+  data() {
+    return {};
+  },
+  computed: {
+    token() {
+      return this.$store.state.token;
+    },
+  },
+  methods: {
+    logOut() {
+      storageService.removeAuthToken();
+      this.$store.commit('setToken', null);
+      this.token = null;
+    },
+  },
+  mounted() {
+    this.token = storageService.getAuthToken();
+    console.log(this.token);
+    if (!this.token) {
+      this.$router.push('/auth/signin');
+    }
+  },
+};
+</script>
 
 <style lang="scss">
 body,
