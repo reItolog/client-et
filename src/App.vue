@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>
+      <router-link to="/">Todo</router-link>
       <router-link to="/users">Users</router-link>
       <router-link to="/auth/signin" v-if="!token">auth</router-link>
-      <button v-if="token" @click="logOut">authlogOut</button>
+      <button class="logout-btn" v-if="token" @click="logOut">log out</button>
     </div>
     <router-view />
   </div>
@@ -69,5 +69,16 @@ html {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.logout-btn {
+  background: #7b094f;
+  border: none;
+  padding: 5px 15px;
+  font-weight: bold;
+  color: wheat;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 10px;
 }
 </style>

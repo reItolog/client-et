@@ -22,6 +22,11 @@ export default new Vuex.Store({
       data: null,
       error: null,
     },
+    todo: {
+      data: [],
+      error: null,
+      loading: true,
+    },
   },
   mutations: {
     setUser(state, payload) {
@@ -40,11 +45,24 @@ export default new Vuex.Store({
         loading: false,
       };
     },
+
+    fetchTodo(state, payload) {
+      state.todo = {
+        data: payload.data,
+        error: payload.error,
+        loading: false,
+      };
+    },
   },
   actions: {
     async fetchAllUserAsync({ commit }) {
       const { data, error } = await useFetch(`${apiConfig.baseApiUrl}/users`);
       commit('fetchAllUser', { data, error });
+    },
+
+    async fetchTodoAsync({ commit }) {
+      const { data, error } = await useFetch(`${apiConfig.baseApiUrl}/todo`);
+      commit('fetchTodo', { data, error });
     },
 
     async signup(context, payload) {

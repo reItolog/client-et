@@ -26,7 +26,9 @@ export default {
   },
   methods: {
     async getAllUsers() {
-      this.$store.dispatch('fetchAllUserAsync');
+      if (!this.users.data.length) {
+        this.$store.dispatch('fetchAllUserAsync');
+      }
     },
   },
   created() {
