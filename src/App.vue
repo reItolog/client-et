@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Home</router-link>|
+      <router-link to="/users">Users</router-link>|
       <router-link to="/auth/signin" v-if="!token">auth</router-link>
       <button v-if="token" @click="logOut">authlogOut</button>
     </div>
@@ -26,11 +27,9 @@ export default {
       this.$store.commit('setToken', null);
     },
   },
-  mounted() {
+  created() {
     const token = storageService.getAuthToken();
-    if (!token) {
-      this.$router.push('/auth/signin');
-    }
+    this.$store.commit('setToken', token);
   },
 };
 </script>

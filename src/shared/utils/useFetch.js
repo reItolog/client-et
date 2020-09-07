@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { storageService } from '../services/localstorage.service';
 
-export const useFetch = (url, data, method = 'get') => {
+export const useFetch = async (url, payload, method = 'get') => {
   const token = storageService.getAuthToken();
   const headers = {};
 
@@ -9,10 +9,16 @@ export const useFetch = (url, data, method = 'get') => {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  return axios({
-    method,
-    url,
-    data,
-    headers,
-  });
+  try {
+    const { data } = await axios({
+      method,
+      url,
+      data: payload,
+      headers,
+    });
+
+    return { data: data.data, error: data.error };
+  } catch (error) {
+    return { data: null, error };
+  }
 };
