@@ -1,16 +1,16 @@
 class LocalstorageService {
-  token = 'token';
+  user = 'user';
 
-  getAuthToken() {
-    return localStorage.getItem(this.token);
+  getUser() {
+    return JSON.parse(localStorage.getItem(this.user));
   }
 
-  setAuthToken(token) {
-    return localStorage.setItem(this.token, token);
+  setUser(user) {
+    return localStorage.setItem(this.user, JSON.stringify(user));
   }
 
-  removeAuthToken() {
-    return localStorage.removeItem(this.token);
+  removeUser() {
+    return localStorage.removeItem(this.user);
   }
 }
 

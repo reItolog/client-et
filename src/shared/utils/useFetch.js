@@ -2,11 +2,11 @@ import axios from 'axios';
 import { storageService } from '../services/localstorage.service';
 
 export const useFetch = async (url, payload, method = 'get') => {
-  const token = storageService.getAuthToken();
+  const user = storageService.getUser();
   const headers = {};
 
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
+  if (user && user.token) {
+    headers.Authorization = `Bearer ${user.token}`;
   }
 
   try {

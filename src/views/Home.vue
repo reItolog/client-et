@@ -11,11 +11,14 @@ export default {
   name: 'Home',
   components: {},
   beforeRouteEnter(to, from, next) {
-    const token = storageService.getAuthToken();
-    if (token) {
+    const user = storageService.getUser();
+
+    if (user && user.token) {
       next(true);
     } else {
-      next(false);
+      next(vm => {
+        vm.$router.push('/auth/signin');
+      });
     }
   },
 };

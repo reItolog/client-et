@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/users">Users</router-link>|
+      <router-link to="/">Home</router-link>
+      <router-link to="/users">Users</router-link>
       <router-link to="/auth/signin" v-if="!token">auth</router-link>
       <button v-if="token" @click="logOut">authlogOut</button>
     </div>
@@ -13,23 +13,25 @@
 <script>
 import { storageService } from './shared/services/localstorage.service';
 export default {
-  data() {
-    return {};
-  },
   computed: {
     token() {
-      return this.$store.state.token;
+      if (this.$store.state.user && this.$store.state.user.data) {
+        return this.$store.state.user.data.token;
+      }
+      return null;
     },
   },
   methods: {
     logOut() {
-      storageService.removeAuthToken();
-      this.$store.commit('setToken', null);
+      this.$store.dispatch('logout');
+      this.$router.push('/auth/signin');
     },
   },
   created() {
-    const token = storageService.getAuthToken();
-    this.$store.commit('setToken', token);
+    const user = storageService.getUser();
+    if (user) {
+      this.$store.commit('setUser', { data: user, error: null });
+    }
   },
 };
 </script>
@@ -50,6 +52,8 @@ html {
 
 #nav {
   padding: 30px;
+  display: flex;
+  justify-content: space-around;
 
   a {
     font-weight: bold;
