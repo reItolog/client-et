@@ -16,11 +16,19 @@ export default new Vuex.Store({
     users: {
       data: [],
       error: null,
+      loading: true,
+    },
+    signup: {
+      data: null,
+      error: null,
     },
   },
   mutations: {
     setUser(state, payload) {
       state.user = payload;
+    },
+    setSignUpState(state, payload) {
+      state.signup = payload;
     },
     removeUser(state, payload) {
       state.user = payload;
@@ -29,6 +37,7 @@ export default new Vuex.Store({
       state.users = {
         data: payload.data,
         error: payload.error,
+        loading: false,
       };
     },
   },
@@ -36,6 +45,15 @@ export default new Vuex.Store({
     async fetchAllUserAsync({ commit }) {
       const { data, error } = await useFetch(`${apiConfig.baseApiUrl}/users`);
       commit('fetchAllUser', { data, error });
+    },
+
+    async signup(context, payload) {
+      const { data, error } = await useFetch(
+        `${apiConfig.baseApiUrl}/signup`,
+        payload,
+        'post',
+      );
+      context.commit('setSignUpState', { data, error });
     },
 
     async login(context, payload) {

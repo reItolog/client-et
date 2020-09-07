@@ -1,8 +1,13 @@
 <template>
   <section class="users">
     <h2>{{users.error}}</h2>
-
-    <ul class="user-list">
+    <ul class="user-list" v-if="users.loading">
+      <li v-for="user in 5" :key="user" class="user-item">
+        <span>......</span>
+        <span>......</span>
+      </li>
+    </ul>
+    <ul class="user-list" v-else>
       <li v-for="user in users.data" :key="user.id" class="user-item">
         <span>{{user.id}}: {{user.first_name}} {{user.last_name}}</span>
         <span>{{user.email}}</span>
@@ -13,6 +18,7 @@
 
 <script>
 export default {
+  components: {},
   computed: {
     users() {
       return this.$store.state.users;

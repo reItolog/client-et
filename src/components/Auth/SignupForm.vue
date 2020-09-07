@@ -1,7 +1,7 @@
 <template>
   <section class="form-container">
     <h2>Sign Up</h2>
-    <p class="error" v-if="error">{{ error }}</p>
+    <p class="error" v-if="signup.error">{{ signup.error }}</p>
     <form class="auth-form" @submit.prevent="handleSubmit">
       <div class="form--field">
         <label for="firstName">firstName</label>
@@ -29,9 +29,6 @@
 </template>
 
 <script>
-import apiConfig from '../../../config/api.json';
-import { useFetch } from '../../shared/utils/useFetch.js';
-
 export default {
   data() {
     return {
@@ -39,8 +36,12 @@ export default {
       lastName: 'Mora',
       email: 'test@gmail.com',
       password: '123',
-      error: '',
     };
+  },
+  computed: {
+    signup() {
+      return this.$store.state.signup;
+    },
   },
   methods: {
     async handleSubmit() {
@@ -51,18 +52,7 @@ export default {
         password: this.password,
       };
 
-      const { error } = await useFetch(
-        `${apiConfig.baseApiUrl}/signup`,
-        payload,
-        'post',
-      );
-
-      if (error) {
-        this.error = error;
-        return;
-      } else {
-        this.error = '';
-      }
+      this.$store.dispatch('signup', payload);
     },
   },
 };
