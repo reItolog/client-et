@@ -46,7 +46,9 @@ export const users = {
       );
 
       context.commit('setUser', { data, error });
-      storageService.setUser(data);
+      if (!error) {
+        storageService.setUser(data);
+      }
     },
 
     logout({ commit }) {

@@ -7,7 +7,7 @@
 
 <script>
 import { storageService } from '../shared/services/localstorage.service';
-import TotoCard from '../components/TotoCard/TotoCard';
+import TotoCard from '../components/Todo/TotoCard/TotoCard';
 
 export default {
   name: 'Home',

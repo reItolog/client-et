@@ -54,6 +54,9 @@ export default {
       };
 
       this.$store.dispatch('signup', payload);
+      if (!this.signup.error) {
+        this.$router.push('/auth/signin');
+      }
     },
   },
 };

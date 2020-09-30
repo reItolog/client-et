@@ -40,7 +40,9 @@ export default {
         email: this.email,
         password: this.password,
       });
-      // this.$router.push('/');
+      if (!this.user.error) {
+        this.$router.push('/');
+      }
     },
   },
 };
