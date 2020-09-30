@@ -9,7 +9,12 @@
       </div>
       <div class="form--field">
         <label for="password">password</label>
-        <input v-model="password" name="password" type="password" placeholder="password" />
+        <input
+          v-model="password"
+          name="password"
+          type="password"
+          placeholder="password"
+        />
       </div>
       <button type="submit">send</button>
     </form>
@@ -26,7 +31,7 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.state.user;
+      return this.$store.state.userState.user;
     },
   },
   methods: {
@@ -35,7 +40,7 @@ export default {
         email: this.email,
         password: this.password,
       });
-      this.$router.push('/');
+      // this.$router.push('/');
     },
   },
 };

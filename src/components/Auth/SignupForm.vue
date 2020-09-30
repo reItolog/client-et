@@ -2,6 +2,7 @@
   <section class="form-container">
     <h2>Sign Up</h2>
     <p class="error" v-if="signup.error">{{ signup.error }}</p>
+    <p v-if="signup.data" class="succes">regsucces</p>
     <form class="auth-form" @submit.prevent="handleSubmit">
       <div class="form--field">
         <label for="firstName">firstName</label>
@@ -40,7 +41,7 @@ export default {
   },
   computed: {
     signup() {
-      return this.$store.state.signup;
+      return this.$store.state.authState.signup;
     },
   },
   methods: {

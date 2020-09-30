@@ -1,6 +1,6 @@
 <template>
   <div class="todo">
-    <h3>Todos count: {{todos.data.length}}</h3>
+    <h3>Todos count: {{ todos.data.length }}</h3>
     <TotoCard :todos="todos.data" />
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     todos() {
-      return this.$store.state.todo;
+      return this.$store.state.todoState.todo;
     },
   },
   methods: {

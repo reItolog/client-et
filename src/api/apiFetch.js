@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { storageService } from '../services/localstorage.service';
+import { storageService } from '../shared/services/localstorage.service';
+import config from '../shared/config/config.json';
 
-export const useFetch = async (url, payload, method = 'get') => {
+export const apiFetch = async (url, payload, method = 'get') => {
   const user = storageService.getUser();
   const headers = {};
 
@@ -11,6 +12,7 @@ export const useFetch = async (url, payload, method = 'get') => {
 
   try {
     const { data } = await axios({
+      baseURL: config.baseApiUrl,
       method,
       url,
       data: payload,
