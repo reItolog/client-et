@@ -35,12 +35,11 @@ export const users = {
       const { data, error } = await apiFetch(`/users`);
       commit('fetchAllUser', { data, error });
     },
-    async login(context, payload) {
+    async loginWithEmail(context, payload) {
       const { data, error } = await apiFetch(
-        `/signin`,
+        `/signinWithEmail`,
         {
           email: payload.email,
-          password: payload.password,
         },
         'post',
       );

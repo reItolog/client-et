@@ -1,9 +1,9 @@
 <template>
   <section class="form-container">
-    <h2>Sign In</h2>
+    <h2>Sign In With Email</h2>
     <p class="error" v-if="user.error">{{ user.error }}</p>
 
-    <v-form ref="form" v-model="valid" @submit.prevent="handleSubmit">
+    <v-form autocomplete="on" ref="form" @submit.prevent="handleSubmit">
       <v-text-field
         v-model="email"
         label="Email"
@@ -11,11 +11,11 @@
         required
       ></v-text-field>
 
-      <v-text-field v-model="password" label="password" required></v-text-field>
-
       <v-btn class="mr-4" @click="handleSubmit">
         signIn
       </v-btn>
+
+      <p class="succes" v-if="user.data">{{ user.data.message }}</p>
     </v-form>
   </section>
 </template>
@@ -26,7 +26,6 @@ export default {
     return {
       valid: true,
       email: '',
-      password: '',
     };
   },
   computed: {
@@ -39,9 +38,8 @@ export default {
       this.$refs.form.validate();
     },
     async handleSubmit() {
-      await this.$store.dispatch('login', {
+      await this.$store.dispatch('loginWithEmail', {
         email: this.email,
-        password: this.password,
       });
       // if (!this.user.error) {
       //   this.$router.push('/');

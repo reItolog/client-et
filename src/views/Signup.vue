@@ -1,7 +1,11 @@
 <template>
   <main class="main">
     <Signup />
-    <router-link to="/auth/signin">signin</router-link>
+    <router-link to="/auth/signin"
+      ><v-btn>
+        signIn
+      </v-btn></router-link
+    >
   </main>
 </template>
 

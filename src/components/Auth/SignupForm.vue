@@ -3,34 +3,33 @@
     <h2>Sign Up</h2>
     <p class="error" v-if="signup.error">{{ signup.error }}</p>
     <p v-if="signup.data" class="succes">regsucces</p>
-    <form class="auth-form" @submit.prevent="handleSubmit">
-      <div class="form--field">
-        <label for="firstName">firstName</label>
-        <input v-model="firstName" name="firstName" type="text" />
-      </div>
+    <form>
+      <v-text-field
+        v-model="firstName"
+        label="firstName"
+        required
+      ></v-text-field>
 
-      <div class="form--field">
-        <label for="lastName">lastName</label>
-        <input v-model="lastName" name="lastName" type="text" />
-      </div>
+      <v-text-field v-model="lastName" label="lastName" required></v-text-field>
 
-      <div class="form--field">
-        <label for="email">email</label>
-        <input v-model="email" name="email" type="email" />
-      </div>
-
-      <div class="form--field">
-        <label for="password">password</label>
-        <input v-model="password" name="password" type="password" />
-      </div>
-
-      <button type="submit">send</button>
+      <v-text-field v-model="email" label="E-mail" required></v-text-field>
+      <v-text-field v-model="password" label="password" required></v-text-field>
+      <v-btn class="mr-4" @click="handleSubmit">
+        submit
+      </v-btn>
     </form>
   </section>
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate';
+import { required, maxLength, email } from 'vuelidate/lib/validators';
 export default {
+  mixins: [validationMixin],
+  validations: {
+    firstName: { required, maxLength: maxLength(10) },
+    email: { required, email },
+  },
   data() {
     return {
       firstName: 'Dora',
@@ -41,6 +40,7 @@ export default {
   },
   computed: {
     signup() {
+      console.log(this.$store.state.authState.signup);
       return this.$store.state.authState.signup;
     },
   },
@@ -54,9 +54,9 @@ export default {
       };
 
       this.$store.dispatch('signup', payload);
-      if (!this.signup.error) {
-        this.$router.push('/auth/signin');
-      }
+      // if (!this.signup.error) {
+      //   this.$router.push('/auth/signin');
+      // }
     },
   },
 };
