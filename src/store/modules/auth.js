@@ -23,8 +23,13 @@ export const auth = {
   },
   actions: {
     async signup(context, payload) {
+      context.commit('setSignUpState', {
+        data: null,
+        error: null,
+        loading: true,
+      });
       const { data, error } = await apiFetch(`/signup`, payload, 'post');
-      context.commit('setSignUpState', { data, error });
+      context.commit('setSignUpState', { data, error, loading: false });
     },
 
     async emailVerify(context, payload) {

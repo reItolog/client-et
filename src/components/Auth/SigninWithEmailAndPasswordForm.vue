@@ -20,19 +20,21 @@
 
       <v-btn :disabled="user.loading" class="mr-4" @click="handleSubmit">
         sign In <span v-if="user.loading">...</span>
-        <v-progress-circular
-          v-if="user.loading"
-          class="loader"
-          indeterminate
-          color="primary"
-        ></v-progress-circular>
+        <Loader class="loader" v-if="user.loading" />
       </v-btn>
     </v-form>
   </section>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
+import Loader from '@/shared/UI/Loader/Loader';
+
 export default {
+  components: {
+    Loader,
+  },
   data() {
     return {
       valid: true,
@@ -41,16 +43,18 @@ export default {
     };
   },
   computed: {
+    ...mapState(['userState']),
     user() {
-      return this.$store.state.userState.user;
+      return this.userState.user;
     },
   },
   methods: {
+    ...mapActions(['loginWithEmailAndPassword']),
     validate() {
       this.$refs.form.validate();
     },
     async handleSubmit() {
-      await this.$store.dispatch('loginWithEmailAndPassword', {
+      await this.loginWithEmailAndPassword({
         email: this.email,
         password: this.password,
       });

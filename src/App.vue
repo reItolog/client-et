@@ -5,14 +5,19 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import { storageService } from './shared/services/localstorage.service';
+
 export default {
+  methods: {
+    ...mapMutations(['setUser']),
+  },
   created() {
     const user = storageService.getUser();
     if (user) {
-      this.$store.commit('setUser', { data: user, error: null });
+      this.setUser({ data: user, error: null });
     } else {
-      this.$router.push('/auth/signin');
+      // this.$router.push('/auth/signin');
     }
   },
 };

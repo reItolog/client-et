@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
 import Loader from '../shared/UI/Loader/Loader';
 import InfoLayout from '../layouts/InfoLayout';
 
@@ -23,14 +24,16 @@ export default {
     Loader,
   },
   computed: {
+    ...mapState(['authState']),
     verifyEmailState() {
-      return this.$store.state.authState.verifyEmail;
+      return this.authState.verifyEmail;
     },
   },
   methods: {
+    ...mapActions(['emailVerify']),
     verifyEmail() {
       const { oobCode } = this.$route.query;
-      this.$store.dispatch('emailVerify', { actionCode: oobCode });
+      this.emailVerify({ actionCode: oobCode });
     },
   },
   created() {

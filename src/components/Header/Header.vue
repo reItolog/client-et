@@ -2,16 +2,18 @@
   <div id="nav">
     <router-link to="/">Todo</router-link>
     <router-link to="/users">Users</router-link>
-    <!-- <router-link to="/auth/signin">auth</router-link> -->
-    <button class="logout-btn" @click="logOut">log out</button>
+    <button class="logout-btn" @click="signOut">log out</button>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   methods: {
-    logOut() {
-      this.$store.dispatch('logout');
+    ...mapActions(['logout']),
+    signOut() {
+      this.logout();
       this.$router.push('/auth/signin');
     },
   },
