@@ -5,7 +5,7 @@
         <p v-if="verifyEmailState.error">{{ verifyEmailState.error }}</p>
         <v-container v-if="!verifyEmailState.loading">
           <p>{{ verifyEmailState.data }}</p>
-          <router-link to="/">to main page</router-link>
+          <router-link to="/auth/signin">Sign In</router-link>
         </v-container>
         <Loader v-else />
       </v-main>
