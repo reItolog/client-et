@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Todo from '../views/Todo.vue';
 import Signup from '../views/Signup.vue';
 import Signin from '../views/Signin.vue';
+import EmailVerifySuccess from '../views/EmailVerifySuccess.vue';
 
 const Users = () => import('../views/Users.vue');
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/auth/signin',
     name: 'AutSignin',
     component: Signin,
+  },
+  {
+    path: '/email-success-verify',
+    name: 'EmailVerifySuccess',
+    component: EmailVerifySuccess,
   },
 ];
 

@@ -1,18 +1,22 @@
 <template>
-  <div class="todo">
-    <h3>Todos count: {{ todos.data.length }}</h3>
-    <TotoCard :todos="todos.data" />
-  </div>
+  <MainLayout>
+    <div class="todo">
+      <h3>Todos count: {{ todos.data.length }}</h3>
+      <TotoCard :todos="todos.data" />
+    </div>
+  </MainLayout>
 </template>
 
 <script>
 import { storageService } from '../shared/services/localstorage.service';
 import TotoCard from '../components/Todo/TotoCard/TotoCard';
+import MainLayout from '@/layouts/MainLayout';
 
 export default {
   name: 'Home',
   components: {
     TotoCard,
+    MainLayout,
   },
   computed: {
     todos() {
