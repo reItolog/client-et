@@ -1,22 +1,22 @@
 <template>
-  <MainLayout>
+  <InfoLayout>
     <Signup />
     <router-link to="/auth/signin"
       ><v-btn>
         signIn
       </v-btn></router-link
     >
-  </MainLayout>
+  </InfoLayout>
 </template>
 
 <script>
 import Signup from '@/components/Auth/SignupForm';
-import MainLayout from '@/layouts/MainLayout';
+import InfoLayout from '@/layouts/InfoLayout';
 
 export default {
   components: {
     Signup,
-    MainLayout,
+    InfoLayout,
   },
 };
 </script>

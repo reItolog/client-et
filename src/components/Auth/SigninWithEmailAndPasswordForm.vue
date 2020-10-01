@@ -1,31 +1,35 @@
-<tamplate>
-<section class="form-container">
-  <h2>Sign In</h2>
-  <p class="error" v-if="user.error">{{ user.error }}</p>
+<template>
+  <section class="form-container">
+    <h2>Sign In</h2>
+    <p class="error" v-if="user.error">{{ user.error }}</p>
 
-  <v-form autocomplete="on" ref="form" @submit.prevent="handleSubmit">
-    <v-text-field
-      v-model="email"
-      label="Email"
-      type="email"
-      required
-    ></v-text-field>
+    <v-form autocomplete="on" ref="form" @submit.prevent="handleSubmit">
+      <v-text-field
+        v-model="email"
+        label="Email"
+        type="email"
+        required
+      ></v-text-field>
 
-    <v-text-field
-      v-model="password"
-      label="Password"
-      type="password"
-      required
-    ></v-text-field>
+      <v-text-field
+        v-model="password"
+        label="Password"
+        type="password"
+        required
+      ></v-text-field>
 
-    <v-btn class="mr-4" @click="handleSubmit">
-      signIn
-    </v-btn>
-
-    <p class="succes" v-if="user.data">{{ user.data.message }}</p>
-  </v-form>
-</section>
-</tamplate>
+      <v-btn :disabled="user.loading" class="mr-4" @click="handleSubmit">
+        sign In <span v-if="user.loading">...</span>
+        <v-progress-circular
+          v-if="user.loading"
+          class="loader"
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
+      </v-btn>
+    </v-form>
+  </section>
+</template>
 
 <script>
 export default {
@@ -33,6 +37,7 @@ export default {
     return {
       valid: true,
       email: '',
+      password: '',
     };
   },
   computed: {
@@ -45,12 +50,13 @@ export default {
       this.$refs.form.validate();
     },
     async handleSubmit() {
-      await this.$store.dispatch('loginWithEmail', {
+      await this.$store.dispatch('loginWithEmailAndPassword', {
         email: this.email,
+        password: this.password,
       });
-      // if (!this.user.error) {
-      //   this.$router.push('/');
-      // }
+      if (!this.user.error) {
+        this.$router.push('/');
+      }
     },
   },
 };

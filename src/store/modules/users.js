@@ -7,6 +7,7 @@ export const users = {
     user: {
       data: null,
       error: null,
+      loading: false,
     },
     users: {
       data: [],
@@ -35,16 +36,19 @@ export const users = {
       const { data, error } = await apiFetch(`/users`);
       commit('fetchAllUser', { data, error });
     },
-    async loginWithEmail(context, payload) {
+    async loginWithEmailAndPassword(context, payload) {
+      context.commit('setUser', { data: null, error: null, loading: true });
+
       const { data, error } = await apiFetch(
-        `/signinWithEmail`,
+        `/signinWithEmailAndPassword`,
         {
           email: payload.email,
+          password: payload.password,
         },
         'post',
       );
 
-      context.commit('setUser', { data, error });
+      context.commit('setUser', { data, error, loading: false });
       if (!error) {
         storageService.setUser(data);
       }

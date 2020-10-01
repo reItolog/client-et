@@ -2,7 +2,7 @@
   <section class="form-container">
     <h2>Sign Up</h2>
     <p class="error" v-if="signup.error">{{ signup.error }}</p>
-    <p v-if="signup.data" class="succes">regsucces</p>
+    <p v-if="signup.data" class="succes">{{ signup.data }}</p>
     <form>
       <v-text-field
         v-model="firstName"
@@ -34,13 +34,12 @@ export default {
     return {
       firstName: 'Dora',
       lastName: 'Mora',
-      email: 'test@gmail.com',
-      password: '123',
+      email: 'serhiirmn@gmail.com',
+      password: '111111',
     };
   },
   computed: {
     signup() {
-      console.log(this.$store.state.authState.signup);
       return this.$store.state.authState.signup;
     },
   },
@@ -54,9 +53,6 @@ export default {
       };
 
       this.$store.dispatch('signup', payload);
-      // if (!this.signup.error) {
-      //   this.$router.push('/auth/signin');
-      // }
     },
   },
 };

@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import { storageService } from '../shared/services/localstorage.service';
 import TotoCard from '../components/Todo/TotoCard/TotoCard';
 import MainLayout from '@/layouts/MainLayout';
 
@@ -30,17 +29,6 @@ export default {
   },
   created() {
     this.fetchTodo();
-  },
-  beforeRouteEnter(to, from, next) {
-    const user = storageService.getUser();
-
-    if (user && user.token) {
-      next(true);
-    } else {
-      next(vm => {
-        vm.$router.push('/auth/signin');
-      });
-    }
   },
 };
 </script>

@@ -1,22 +1,22 @@
 <template>
-  <MainLayout>
-    <SigninWithEmailForm />
+  <InfoLayout>
+    <SigninWithEmailAndPasswordForm />
     <router-link to="/auth/signup"
       ><v-btn>
         signup
       </v-btn></router-link
     >
-  </MainLayout>
+  </InfoLayout>
 </template>
 
 <script>
-import SigninWithEmailForm from '@/components/Auth/SigninWithEmailForm';
-import MainLayout from '@/layouts/MainLayout';
+import SigninWithEmailAndPasswordForm from '@/components/Auth/SigninWithEmailAndPasswordForm';
+import InfoLayout from '@/layouts/InfoLayout';
 
 export default {
   components: {
-    SigninWithEmailForm,
-    MainLayout,
+    SigninWithEmailAndPasswordForm,
+    InfoLayout,
   },
 };
 </script>

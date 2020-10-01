@@ -8,21 +8,15 @@
 import { storageService } from './shared/services/localstorage.service';
 export default {
   computed: {
-    token() {
-      if (
-        this.$store.state.userState.user &&
-        this.$store.state.userState.user.data
-      ) {
-        return this.$store.state.userState.user.data.token;
-      }
-      return null;
-    },
-  },
-  methods: {
-    logOut() {
-      this.$store.dispatch('logout');
-      this.$router.push('/auth/signin');
-    },
+    // token() {
+    //   if (
+    //     this.$store.state.userState.user &&
+    //     this.$store.state.userState.user.data
+    //   ) {
+    //     return this.$store.state.userState.user.data.token;
+    //   }
+    //   return null;
+    // },
   },
   created() {
     const user = storageService.getUser();
