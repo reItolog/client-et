@@ -1,9 +1,12 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Todo</router-link>
-    <router-link to="/users">Users</router-link>
+  <v-toolbar color="pink" dark class="toolbar">
+    <div class="nav">
+      <router-link to="/">Todo</router-link>
+      <router-link to="/users">Users</router-link>
+    </div>
+    <v-spacer></v-spacer>
     <button class="logout-btn" @click="signOut">log out</button>
-  </div>
+  </v-toolbar>
 </template>
 
 <script>
@@ -20,4 +23,19 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.toolbar {
+  margin-bottom: 5%;
+}
+.nav {
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  a {
+    color: white;
+    &:hover {
+      color: wheat;
+    }
+  }
+}
+</style>

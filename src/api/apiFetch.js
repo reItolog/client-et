@@ -21,6 +21,6 @@ export const apiFetch = async (url, payload, method = 'get') => {
 
     return { data: data.data, error: data.error };
   } catch (error) {
-    return { data: null, error };
+    return { data: null, error: error.message };
   }
 };

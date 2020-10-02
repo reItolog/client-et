@@ -1,19 +1,10 @@
 <template>
   <MainLayout>
     <section class="users">
-      <h2>{{ users.error }}</h2>
+      <h2 v-if="users.error">{{ users.error }}</h2>
+      <UsersList v-else :users="users.data.users" />
+
       <Loader v-if="users.loading" />
-      <ul class="user-list" v-else>
-        <li
-          v-for="user in users.data.users"
-          :key="user.id"
-          class="user-item"
-          :data-uid="user.uid"
-        >
-          <span> {{ user.displayName }}</span>
-          <span>{{ user.email }}</span>
-        </li>
-      </ul>
     </section>
   </MainLayout>
 </template>
@@ -22,11 +13,13 @@
 import { mapActions, mapState } from 'vuex';
 
 import Loader from '../shared/UI/Loader/Loader';
+import UsersList from '@/components/Users/UsersList';
 import MainLayout from '@/layouts/MainLayout';
 
 export default {
   components: {
     Loader,
+    UsersList,
     MainLayout,
   },
   computed: {

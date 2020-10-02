@@ -1,7 +1,5 @@
 import { apiFetch } from '../../api/apiFetch';
 
-import { storageService } from '../../shared/services/localstorage.service';
-
 export const users = {
   state: () => ({
     user: {
@@ -35,31 +33,6 @@ export const users = {
     async fetchAllUserAsync({ commit }) {
       const { data, error } = await apiFetch(`/users`);
       commit('fetchAllUser', { data, error });
-    },
-    async loginWithEmailAndPassword(context, payload) {
-      context.commit('setUser', { data: null, error: null, loading: true });
-
-      const { data, error } = await apiFetch(
-        `/signinWithEmailAndPassword`,
-        {
-          email: payload.email,
-          password: payload.password,
-        },
-        'post',
-      );
-
-      context.commit('setUser', { data, error, loading: false });
-      if (!error) {
-        storageService.setUser(data);
-      }
-    },
-
-    logout({ commit }) {
-      storageService.removeUser();
-      commit('removeUser', {
-        data: null,
-        error: null,
-      });
     },
   },
 };

@@ -5,20 +5,33 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 import { storageService } from './shared/services/localstorage.service';
 
 export default {
+  computed: {
+    ...mapState(['authState']),
+    isLogged() {
+      return this.authState.logged;
+    },
+  },
   methods: {
-    ...mapMutations(['setUser']),
+    ...mapMutations(['setUser', 'setLogged']),
+    chekIsLogged() {
+      if (!this.isLogged) {
+        this.$router.push('/auth/signin');
+      }
+    },
+    setUserToStore() {
+      const user = storageService.getUser();
+      if (user) {
+        this.setUser({ data: user, error: null });
+        this.setLogged(true);
+      }
+    },
   },
   created() {
-    const user = storageService.getUser();
-    if (user) {
-      this.setUser({ data: user, error: null });
-    } else {
-      // this.$router.push('/auth/signin');
-    }
+    this.setUserToStore(), this.chekIsLogged();
   },
 };
 </script>
