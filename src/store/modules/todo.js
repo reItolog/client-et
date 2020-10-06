@@ -25,6 +25,10 @@ export const todo = {
 
       state.error = error;
     },
+    deleteTodo(state, { payload, error }) {
+      state.todo.data = state.todo.data.filter(item => item.id !== payload);
+      state.error = error;
+    },
   },
   actions: {
     async fetchTodoAsync({ commit }) {
@@ -41,6 +45,18 @@ export const todo = {
       const { error } = await apiFetch(`/todo`, payload, 'patch');
 
       context.commit('updateTodo', { data: payload, error });
+    },
+
+    async deleteTodoAsync(context, payload) {
+      const { data, error } = await apiFetch(
+        `/todo/${payload}`,
+        payload,
+        'delete',
+      );
+
+      console.log(data);
+
+      context.commit('deleteTodo', { payload, error });
     },
   },
 };

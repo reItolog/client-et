@@ -59,8 +59,12 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['updateTodoAsync']),
-    handleDelete() {},
+    ...mapActions(['updateTodoAsync', 'deleteTodoAsync']),
+    handleDelete(e) {
+      const id = e.currentTarget.parentElement.parentElement.dataset.id;
+      console.log(id);
+      this.deleteTodoAsync(id);
+    },
     handleUpdate(index, e) {
       const id = e.currentTarget.parentElement.parentElement.dataset.id;
 
@@ -79,13 +83,19 @@ export default {
 };
 </script>
 
-<style>
+<style lang='scss'>
+@import '../../../shared/styles/mixins.scss';
 .todo-list {
   display: flex;
   justify-content: center;
   align-self: center;
   flex-direction: column;
   min-width: 400px;
+
+  @include phones() {
+    width: 100%;
+    min-width: 260px;
+  }
 }
 .todo-item {
   display: flex;
