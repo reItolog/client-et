@@ -8,13 +8,18 @@
     >
       <div class="todo-column">
         <span>title:</span>
-        <span contenteditable="true" ref="titleRef">{{ todo.title }}</span>
+        <span class="editable-field" contenteditable="true" ref="titleRef">{{
+          todo.title
+        }}</span>
       </div>
       <div class="todo-column">
         <span>description:</span>
-        <span contenteditable="true" ref="descriptionRef">{{
-          todo.description
-        }}</span>
+        <span
+          class="editable-field"
+          contenteditable="true"
+          ref="descriptionRef"
+          >{{ todo.description }}</span
+        >
       </div>
       <div class="todo-column">
         <span>updated at:</span>
@@ -100,7 +105,6 @@ export default {
 .todo-item {
   display: flex;
   flex-direction: column;
-  /* border: 3px solid grey; */
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 5%;
@@ -108,7 +112,7 @@ export default {
 }
 .todo-column {
   display: flex;
-  /* flex-direction: column; */
+  flex-wrap: wrap;
   justify-content: space-between;
   border: 1px solid grey;
   padding: 1%;
@@ -119,5 +123,11 @@ export default {
   display: flex;
   justify-content: space-around;
   margin: 4% 0;
+}
+
+.editable-field {
+  background: antiquewhite;
+  padding: 1%;
+  min-width: 250px;
 }
 </style>

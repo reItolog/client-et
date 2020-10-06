@@ -24,17 +24,37 @@ export default {
     TodoForm,
   },
   computed: {
-    ...mapState(['todoState']),
+    ...mapState(['todoState', 'authState']),
     todos() {
       return this.todoState.todo;
+    },
+    isLogged() {
+      return this.authState.logged;
     },
   },
   methods: {
     ...mapActions(['fetchTodoAsync']),
+    chekIsLogged() {
+      if (!this.isLogged) {
+        this.$router.push('/auth/signin');
+      }
+    },
   },
   created() {
+    this.chekIsLogged();
     this.fetchTodoAsync();
   },
+  // beforeRouteEnter(to, from, next) {
+  //   console.log('asdsad');
+  //   if (to.query.redirectFrom) {
+  //     next(vm => {
+  //       vm.errorMsg =
+  //         "Sorry, you don't have the right access to reach the route requested";
+  //     });
+  //   } else {
+  //     next();
+  //   }
+  // },
 };
 </script>
 

@@ -1,5 +1,6 @@
 class LocalstorageService {
   user = 'user';
+  verified = 'verified';
 
   getUser() {
     return JSON.parse(localStorage.getItem(this.user));
@@ -11,6 +12,18 @@ class LocalstorageService {
 
   removeUser() {
     return localStorage.removeItem(this.user);
+  }
+
+  setVerified() {
+    return localStorage.setItem(this.verified, true);
+  }
+
+  getVerified() {
+    return localStorage.getItem(this.verified);
+  }
+
+  removeVerified() {
+    return localStorage.removeItem(this.verified);
   }
 }
 
