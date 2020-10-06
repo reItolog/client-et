@@ -16,13 +16,14 @@ export const todo = {
       state.todo.data.push(payload.data);
       state.todo.error = payload.error;
     },
-    updateTodo(state, payload) {
-      const updated = state.todo.data.find(item => item.id === payload.id);
-      console.log('upt', updated);
-      updated.title = payload.title;
-      updated.description = payload.description;
-      updated.update_at = payload.update_at;
-      console.log('UPPED', updated);
+    updateTodo(state, { data, error }) {
+      const updated = state.todo.data.find(item => item.id === data.id);
+
+      updated.title = data.title;
+      updated.description = data.description;
+      updated.update_at = data.update_at;
+
+      state.error = error;
     },
   },
   actions: {
@@ -31,15 +32,15 @@ export const todo = {
       commit('fetchTodo', { data, error });
     },
     async addTodoAsync(context, payload) {
-      const { data, error } = await apiFetch(`/todo`, payload, 'post');
-      console.log(data);
+      const { error } = await apiFetch(`/todo`, payload, 'post');
+
       context.commit('addTodo', { data: payload, error });
     },
 
     async updateTodoAsync(context, payload) {
-      // console.log(payload);
+      const { error } = await apiFetch(`/todo`, payload, 'patch');
 
-      context.commit('updateTodo', payload);
+      context.commit('updateTodo', { data: payload, error });
     },
   },
 };

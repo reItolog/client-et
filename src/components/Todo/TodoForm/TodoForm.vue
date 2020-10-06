@@ -15,6 +15,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { getNewDate } from '../../../shared/utils/date';
 
 export default {
   data: () => ({
@@ -36,6 +37,7 @@ export default {
         title: this.title.trim(),
         description: this.description.trim(),
         owner_id: this.userId,
+        update_at: getNewDate(),
       };
       await this.addTodoAsync(payload);
     },
