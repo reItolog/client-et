@@ -32,7 +32,7 @@
           small
           fab
           color="indigo"
-          @click="handleUpdate(index, $event)"
+          @click="handleUpdate(index, todo.id, $event)"
         >
           <v-icon>mdi-content-save</v-icon>
         </v-btn>
@@ -43,7 +43,7 @@
           small
           fab
           color="indigo"
-          @click="handleDelete($event)"
+          @click="handleDelete(todo.id)"
         >
           <v-icon>mdi-delete</v-icon>
         </v-btn>
@@ -65,14 +65,10 @@ export default {
   },
   methods: {
     ...mapActions(['updateTodo', 'deleteTodo']),
-    handleDelete(e) {
-      const id = e.currentTarget.parentElement.parentElement.dataset.id;
-
+    handleDelete(id) {
       this.deleteTodo(id);
     },
-    handleUpdate(index, e) {
-      const id = e.currentTarget.parentElement.parentElement.dataset.id;
-
+    handleUpdate(index, id) {
       const title = this.$refs.titleRef[index].innerText;
       const description = this.$refs.descriptionRef[index].innerText;
       const payload = {

@@ -10,6 +10,10 @@
           <v-list-item-title v-html="item.displayName"></v-list-item-title>
           <v-list-item-subtitle v-html="item.email"></v-list-item-subtitle>
         </v-list-item-content>
+
+        <v-btn class="ma-2">
+          <v-icon>mdi-image</v-icon>
+        </v-btn>
       </v-list-item>
 
       <v-divider :key="index" :inset="item.inset"></v-divider>
