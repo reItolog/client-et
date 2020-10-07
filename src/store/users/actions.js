@@ -4,7 +4,6 @@ import { GET_USERS, SET_USER } from './types';
 export default {
   async getAllUsers({ commit }) {
     const { data, error } = await apiFetch(`/users`);
-
     commit(GET_USERS, { data, error });
   },
 

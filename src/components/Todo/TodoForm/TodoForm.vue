@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { getNewDate } from '../../../shared/utils/date';
 
 export default {
@@ -24,14 +24,14 @@ export default {
   }),
 
   computed: {
-    ...mapState(['userState']),
+    ...mapGetters(['user']),
     userId() {
-      return this.userState.user.data.uid;
+      return this.user.data.uid;
     },
   },
 
   methods: {
-    ...mapActions(['addTodoAsync']),
+    ...mapActions(['addTodo']),
     async submit() {
       const payload = {
         title: this.title.trim(),
@@ -39,7 +39,7 @@ export default {
         owner_id: this.userId,
         update_at: getNewDate(),
       };
-      await this.addTodoAsync(payload);
+      await this.addTodo(payload);
     },
   },
 };

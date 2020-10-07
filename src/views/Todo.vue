@@ -2,16 +2,14 @@
   <MainLayout>
     <div class="todo">
       <TodoForm />
-      <h3 v-if="todos.data" class="todo-title">
-        Todos count: {{ todos.data.length }}
-      </h3>
-      <TodoCard v-if="todos.data" :todos="todos.data" />
+      <h3 v-if="todos" class="todo-title">Todos count: {{ todos.length }}</h3>
+      <TodoCard v-if="todos" :todos="todos" />
     </div>
   </MainLayout>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 import TodoCard from '../components/Todo/TodoCard/TodoCard';
 import TodoForm from '@/components/Todo/TodoForm/TodoForm';
 import MainLayout from '@/layouts/MainLayout';
@@ -24,16 +22,15 @@ export default {
     TodoForm,
   },
   computed: {
-    ...mapState(['todoState', 'authState']),
-    todos() {
-      return this.todoState.todo;
-    },
+    ...mapGetters(['todos']),
+    ...mapState(['authState']),
+
     isLogged() {
       return this.authState.logged;
     },
   },
   methods: {
-    ...mapActions(['fetchTodoAsync']),
+    ...mapActions(['getTodos']),
     chekIsLogged() {
       if (!this.isLogged) {
         this.$router.push('/auth/signin');
@@ -42,19 +39,8 @@ export default {
   },
   created() {
     this.chekIsLogged();
-    this.fetchTodoAsync();
+    this.getTodos();
   },
-  // beforeRouteEnter(to, from, next) {
-  //   console.log('asdsad');
-  //   if (to.query.redirectFrom) {
-  //     next(vm => {
-  //       vm.errorMsg =
-  //         "Sorry, you don't have the right access to reach the route requested";
-  //     });
-  //   } else {
-  //     next();
-  //   }
-  // },
 };
 </script>
 

@@ -64,11 +64,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['updateTodoAsync', 'deleteTodoAsync']),
+    ...mapActions(['updateTodo', 'deleteTodo']),
     handleDelete(e) {
       const id = e.currentTarget.parentElement.parentElement.dataset.id;
-      console.log(id);
-      this.deleteTodoAsync(id);
+
+      this.deleteTodo(id);
     },
     handleUpdate(index, e) {
       const id = e.currentTarget.parentElement.parentElement.dataset.id;
@@ -82,13 +82,13 @@ export default {
         update_at: getNewDate(),
       };
 
-      this.updateTodoAsync(payload);
+      this.updateTodo(payload);
     },
   },
 };
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 @import '../../../shared/styles/mixins.scss';
 .todo-list {
   display: flex;
