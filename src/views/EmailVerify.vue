@@ -2,9 +2,9 @@
   <InfoLayout>
     <v-app>
       <v-main>
-        <p v-if="verifyEmailState.error">{{ verifyEmailState.error }}</p>
-        <v-container v-if="!verifyEmailState.loading">
-          <p>{{ verifyEmailState.data }}</p>
+        <p v-if="verifyEmail.error">{{ verifyEmail.error }}</p>
+        <v-container v-if="!verifyEmail.loading">
+          <p>{{ verifyEmail.data }}</p>
           <router-link to="/auth/signin">Sign In</router-link>
         </v-container>
         <Loader v-else />
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Loader from '../shared/UI/Loader/Loader';
 import InfoLayout from '../layouts/InfoLayout';
 
@@ -24,20 +24,17 @@ export default {
     Loader,
   },
   computed: {
-    ...mapState(['authState']),
-    verifyEmailState() {
-      return this.authState.verifyEmail;
-    },
+    ...mapGetters(['verifyEmail']),
   },
   methods: {
     ...mapActions(['emailVerify']),
-    verifyEmail() {
+    verifyEmailActions() {
       const { oobCode } = this.$route.query;
       this.emailVerify({ actionCode: oobCode });
     },
   },
   created() {
-    this.verifyEmail();
+    this.verifyEmailActions();
   },
 };
 </script>

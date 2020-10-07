@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import { auth } from './modules';
+import auth from './auth';
 import users from './users';
 import todo from './todo';
 
@@ -13,7 +13,7 @@ export default new Vuex.Store({
   modules: {
     users,
     todo,
-    authState: auth,
+    auth,
   },
   strict: debug,
 });

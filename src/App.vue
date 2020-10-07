@@ -5,20 +5,20 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import { storageService } from './shared/services/localstorage.service';
 
 export default {
   methods: {
-    ...mapActions(['setUser']),
-    ...mapMutations(['setLogged']),
+    ...mapActions(['setUser', 'setLogged']),
 
     setUserToStore() {
       const user = storageService.getUser();
+      const logged = storageService.getLogged();
 
       if (user) {
         this.setUser({ data: user, error: null });
-        this.setLogged(true);
+        this.setLogged(logged);
       }
     },
   },

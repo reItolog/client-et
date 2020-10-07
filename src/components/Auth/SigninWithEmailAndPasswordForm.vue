@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 import Loader from '@/shared/UI/Loader/Loader';
 
@@ -43,10 +43,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['userState']),
-    user() {
-      return this.userState.user;
-    },
+    ...mapGetters(['user']),
   },
   methods: {
     ...mapActions(['loginWithEmailAndPassword']),

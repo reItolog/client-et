@@ -1,8 +1,8 @@
 <template>
   <section class="form-container">
     <h2>Sign Up</h2>
-    <p class="error" v-if="signupState.error">{{ signupState.error }}</p>
-    <p v-if="signupState.data" class="succes">{{ signupState.data }}</p>
+    <p class="error" v-if="signup.error">{{ signup.error }}</p>
+    <p v-if="signup.data" class="succes">{{ signup.data }}</p>
     <form>
       <v-text-field
         v-model="firstName"
@@ -14,16 +14,16 @@
 
       <v-text-field v-model="email" label="E-mail" required></v-text-field>
       <v-text-field v-model="password" label="password" required></v-text-field>
-      <v-btn :disabled="signupState.loading" class="mr-4" @click="handleSubmit">
+      <v-btn :disabled="signup.loading" class="mr-4" @click="handleSubmit">
         submit
-        <Loader class="loader" v-if="signupState.loading" />
+        <Loader class="loader" v-if="signup.loading" />
       </v-btn>
     </form>
   </section>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 import { validationMixin } from 'vuelidate';
 import { required, maxLength, email } from 'vuelidate/lib/validators';
@@ -47,13 +47,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(['authState']),
-    signupState() {
-      return this.authState.signup;
-    },
+    ...mapGetters(['signup']),
   },
   methods: {
-    ...mapActions(['signup']),
+    ...mapActions(['signUp']),
     async handleSubmit() {
       const payload = {
         first_name: this.firstName,
@@ -62,7 +59,7 @@ export default {
         password: this.password,
       };
 
-      await this.signup(payload);
+      await this.signUp(payload);
     },
   },
 };

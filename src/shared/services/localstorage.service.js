@@ -1,6 +1,6 @@
 class LocalstorageService {
   user = 'user';
-  verified = 'verified';
+  logged = 'logged';
 
   getUser() {
     return JSON.parse(localStorage.getItem(this.user));
@@ -12,6 +12,14 @@ class LocalstorageService {
 
   removeUser() {
     return localStorage.removeItem(this.user);
+  }
+
+  setLogged(logged) {
+    return localStorage.setItem(this.logged, logged);
+  }
+
+  getLogged() {
+    return localStorage.getItem(this.logged);
   }
 }
 

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import TodoCard from '../components/Todo/TodoCard/TodoCard';
 import TodoForm from '@/components/Todo/TodoForm/TodoForm';
 import MainLayout from '@/layouts/MainLayout';
@@ -22,17 +22,12 @@ export default {
     TodoForm,
   },
   computed: {
-    ...mapGetters(['todos']),
-    ...mapState(['authState']),
-
-    isLogged() {
-      return this.authState.logged;
-    },
+    ...mapGetters(['todos', 'logged']),
   },
   methods: {
     ...mapActions(['getTodos']),
     chekIsLogged() {
-      if (!this.isLogged) {
+      if (!this.logged) {
         this.$router.push('/auth/signin');
       }
     },
