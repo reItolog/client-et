@@ -5,25 +5,25 @@ import { SET_LOGGED, SIGN_UP, VERIFY_EMAIL } from './types';
 import { SET_USER, REMOVE_USER } from '../users/types';
 
 export default {
-  async signUp(context, payload) {
-    context.commit(SIGN_UP, {
+  async signUp({ commit }, payload) {
+    commit(SIGN_UP, {
       data: null,
       error: null,
       loading: true,
     });
     const { data, error } = await apiFetch(`/signup`, payload, 'post');
-    context.commit(SIGN_UP, { data, error, loading: false });
+    commit(SIGN_UP, { data, error, loading: false });
   },
 
-  async emailVerify(context, payload) {
-    context.commit(VERIFY_EMAIL, {
+  async emailVerify({ commit }, payload) {
+    commit(VERIFY_EMAIL, {
       data: null,
       error: null,
       loading: true,
     });
     const { data, error } = await apiFetch(`/verify-email`, payload, 'post');
 
-    context.commit(VERIFY_EMAIL, { data, error, loading: false });
+    commit(VERIFY_EMAIL, { data, error, loading: false });
   },
 
   async setLogged({ commit }, payload) {
@@ -32,8 +32,8 @@ export default {
     commit(SET_LOGGED, payload);
   },
 
-  async loginWithEmailAndPassword(context, payload) {
-    context.commit(SET_USER, { data: null, error: null, loading: true });
+  async loginWithEmailAndPassword({ commit, dispatch }, payload) {
+    commit(SET_USER, { data: null, error: null, loading: true });
 
     const { data, error } = await apiFetch(
       `/signinWithEmailAndPassword`,
@@ -44,8 +44,10 @@ export default {
       'post',
     );
 
-    context.commit(SET_USER, { data, error, loading: false });
-    context.dispatch('setLogged', true);
+    commit(SET_USER, { data, error, loading: false });
+
+    dispatch('setLogged', true);
+
     if (!error) {
       storageService.setUser(data);
     }

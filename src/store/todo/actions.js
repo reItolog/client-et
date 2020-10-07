@@ -6,21 +6,21 @@ export default {
     const { data, error } = await apiFetch(`/todo`);
     commit(GET_TODOS, { data, error });
   },
-  async addTodo(context, payload) {
+  async addTodo({ commit }, payload) {
     const { error } = await apiFetch(`/todo`, payload, 'post');
 
-    context.commit(ADD_TODO, { data: payload, error });
+    commit(ADD_TODO, { data: payload, error });
   },
 
-  async updateTodo(context, payload) {
+  async updateTodo({ commit }, payload) {
     const { error } = await apiFetch(`/todo`, payload, 'patch');
 
-    context.commit(UPDATE_TODO, { data: payload, error });
+    commit(UPDATE_TODO, { data: payload, error });
   },
 
-  async deleteTodo(context, payload) {
+  async deleteTodo({ commit }, payload) {
     const { error } = await apiFetch(`/todo/${payload}`, payload, 'delete');
 
-    context.commit(DELETE_TODO, { payload, error });
+    commit(DELETE_TODO, { payload, error });
   },
 };
