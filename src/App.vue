@@ -5,12 +5,13 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex';
 import { storageService } from './shared/services/localstorage.service';
 
 export default {
   methods: {
-    ...mapMutations(['setUser', 'setLogged']),
+    ...mapActions(['setUser']),
+    ...mapMutations(['setLogged']),
 
     setUserToStore() {
       const user = storageService.getUser();

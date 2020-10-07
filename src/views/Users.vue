@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 import Loader from '../shared/UI/Loader/Loader';
 import UsersList from '@/components/Users/UsersList';
@@ -23,16 +23,13 @@ export default {
     MainLayout,
   },
   computed: {
-    ...mapState(['userState']),
-    users() {
-      return this.userState.users;
-    },
+    ...mapGetters(['users']),
   },
   methods: {
-    ...mapActions(['fetchAllUserAsync']),
+    ...mapActions(['getAllUsers']),
   },
   created() {
-    this.fetchAllUserAsync();
+    this.getAllUsers();
   },
 };
 </script>

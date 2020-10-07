@@ -13,18 +13,6 @@ class LocalstorageService {
   removeUser() {
     return localStorage.removeItem(this.user);
   }
-
-  setVerified() {
-    return localStorage.setItem(this.verified, true);
-  }
-
-  getVerified() {
-    return localStorage.getItem(this.verified);
-  }
-
-  removeVerified() {
-    return localStorage.removeItem(this.verified);
-  }
 }
 
 export const storageService = new LocalstorageService();
